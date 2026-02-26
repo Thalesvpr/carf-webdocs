@@ -1,101 +1,73 @@
-# CARF WEBDOCS
+# React + TypeScript + Vite
 
-Portal de documentação estático do sistema CARF gerado com VitePress a partir dos markdown em CENTRAL e TECHNICAL.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Descrição
+Currently, two official plugins are available:
 
-Site estático para documentação pública do sistema CARF, consumindo automaticamente os arquivos markdown do repositório carf-docs e gerando navegação hierárquica com sidebar, busca full-text e temas claro/escuro.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Estrutura
+## React Compiler
 
-- **.vitepress/**: Configuração VitePress (config.js, theme customizations)
-- **public/**: Assets estáticos (imagens, logos)
-- **scripts/**: Scripts automação (sync docs, filter private content)
-- **docs/**: Documentação processada (gerado automaticamente)
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Stack Tecnológica
+## Expanding the ESLint configuration
 
-- VitePress
-- Vue 3
-- Node.js 20+
-- GitHub Actions (CI/CD)
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Funcionalidades
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-- Geração automática navegação a partir estrutura pastas CENTRAL
-- Busca full-text integrada
-- Syntax highlighting código
-- Diagrams Mermaid
-- Responsive design
-- Temas claro/escuro
-- Deploy automático GitHub Pages ou S3
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-## Requisitos
-
-- Node.js 20+
-- npm ou yarn
-
-## Comandos
-
-```bash
-# Instalar dependências
-npm install
-
-# Dev server (hot reload)
-npm run dev
-
-# Build production
-npm run build
-
-# Preview build
-npm run preview
-
-# Sync docs do carf-docs repo
-npm run sync-docs
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## Configuração
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-O arquivo `.vitepress/config.js` define:
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-- Sidebar structure (navegação)
-- Plugins (search, mermaid, etc)
-- Theme customizations
-- Base URL deploy
-- Meta tags SEO
-
-## Deploy
-
-### GitHub Actions (automatizado)
-
-Push para `main` dispara workflow que:
-1. Executa `npm run sync-docs` (filtra docs privadas)
-2. Build VitePress (`npm run build`)
-3. Deploy GitHub Pages ou S3
-
-### Manual
-
-```bash
-# Build
-npm run build
-
-# Deploy GitHub Pages
-npm run deploy
-
-# Ou upload dist/ para S3/Netlify/Vercel
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-## Filtragem Conteúdo Privado
-
-Script `scripts/filter-private.js` remove automaticamente:
-- Credenciais, IPs internos
-- Arquivos marcados com `private: true` no frontmatter YAML
-- Seções sensíveis (SECURITY/INCIDENTS/, etc)
-
-## Documentação
-
-Ver pasta `PROJECTS/WEBDOCS/` no repositório carf-docs para detalhes configuração e customização.
-
-## Licença
-
-Proprietário - Uso restrito

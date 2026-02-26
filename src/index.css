@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light mode (default) — Zinc neutrals + Blue preset ── */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 100%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  /* Blue preset */
+  --primary: 226 70% 55%;
+  --primary-foreground: 210 40% 98%;
+  --secondary-container: 226 100% 94%;
+  --on-secondary-container: 226 70% 25%;
+  --ring: 226 70% 55%;
+  --inverse-primary: 226 100% 82%;
+  /* M3 surface tokens */
+  --surface: 0 0% 100%;
+  --surface-variant: 240 5.9% 90%;
+  --surface-container-lowest: 0 0% 100%;
+  --surface-container-low: 240 4.8% 97.9%;
+  --surface-container: 240 4.8% 95.9%;
+  --surface-container-high: 240 5% 93%;
+  --surface-container-highest: 240 5.9% 90%;
+  --on-surface: 240 5.9% 10%;
+  --on-surface-variant: 240 5.3% 26.1%;
+  --outline: 240 3.8% 46.1%;
+  --outline-variant: 240 4.9% 83.9%;
+  --inverse-surface: 240 5.9% 10%;
+  --inverse-on-surface: 240 4.8% 95.9%;
+}
+
+/* ── Dark mode ── */
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 100%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  /* Blue preset dark */
+  --primary: 226 80% 70%;
+  --primary-foreground: 226 60% 12%;
+  --secondary-container: 226 60% 22%;
+  --on-secondary-container: 226 100% 90%;
+  --ring: 226 80% 70%;
+  --inverse-primary: 226 70% 55%;
+  /* M3 surface tokens */
+  --surface: 240 5.9% 10%;
+  --surface-variant: 240 5.3% 22%;
+  --surface-container-lowest: 240 10% 5.9%;
+  --surface-container-low: 240 5% 12.9%;
+  --surface-container: 240 3.7% 15.9%;
+  --surface-container-high: 240 5% 18%;
+  --surface-container-highest: 240 5.3% 22%;
+  --on-surface: 0 0% 98%;
+  --on-surface-variant: 240 4.9% 83.9%;
+  --outline: 240 5% 64.9%;
+  --outline-variant: 240 5.3% 26.1%;
+  --inverse-surface: 0 0% 98%;
+  --inverse-on-surface: 240 5.9% 10%;
+}
+
+/* ── Base resets ── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── react-native-web fixes ──
+   RNW renders <Text> as an inline element with dir="auto".
+   This breaks Tailwind vertical margins (mt-*, mb-*) because
+   CSS ignores vertical margins on inline elements.
+   Making them block fixes margins without breaking flex layouts
+   (block children inside flex containers behave as flex items). */
+[dir="auto"] {
+  display: block;
+}
